@@ -1,0 +1,10 @@
+#!/bin/sh
+
+BASEDIR=$(git rev-parse --show-toplevel)
+
+files=$(git diff --cached --name-only --diff-filter=ACM | grep '.js$')
+
+for file in $files; do
+  js-beautify -rn "${BASEDIR}/${file}"
+  git add "${BASEDIR}/${file}"
+done
